@@ -2,6 +2,7 @@ const config = require('../config').common.database;
 
 module.exports = {
   development: {
+    databaseUrl: config.databaseUrl,
     username: config.username,
     password: config.password,
     database: config.name,
@@ -10,6 +11,7 @@ module.exports = {
     logging: true
   },
   testing: {
+    databaseUrl: config.databaseUrl,
     username: config.username,
     password: config.password,
     database: config.name,
@@ -18,6 +20,7 @@ module.exports = {
     logging: false
   },
   production: {
+    databaseUrl: config.databaseUrl,
     username: config.username,
     password: config.password,
     database: config.name,
