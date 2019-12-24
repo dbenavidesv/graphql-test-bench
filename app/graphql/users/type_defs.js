@@ -3,7 +3,7 @@ const { gql } = require('apollo-server');
 const rootTypes = gql`
   extend type Query {
     user(id: ID, username: String, email: String): User!
-    users: [User]
+    users: [User]!
   }
 `;
 
@@ -14,7 +14,8 @@ const customTypes = gql`
     username: String!
     email: String!
     posts: [Post!]!
-    orders: Order!
+    createdAt: String
+    updatedAt: String
   }
 `;
 

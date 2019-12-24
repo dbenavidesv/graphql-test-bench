@@ -21,5 +21,6 @@ const schemaWithMiddlewares = applyMiddleware(schema, modules.middlewares);
 module.exports = {
   schema: schemaWithMiddlewares,
   introspection: true,
-  playground: true
+  playground: true,
+  tracing: true
 };

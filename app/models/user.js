@@ -16,10 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      paranoid: true,
       underscored: true
     }
   );
+
+  User.associate = models => {
+    User.hasMany(models.Post);
+  };
 
   return User;
 };

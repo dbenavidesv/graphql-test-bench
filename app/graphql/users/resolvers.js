@@ -1,42 +1,30 @@
-const { User } = require('../../models');
+const logger = require('../../logger');
+const usersService = require('../../services/users');
+const postsService = require('../../services/posts');
 
-const getUser = () => ({
-  id: 1,
-  name: 'Daniel',
-  username: 'jazz',
-  email: 'js@wolox.co'
-});
-const getUsers = (_, params) => User.getAll(params);
+const getUser = (_, params) => {
+  logger.info('Fetching user...');
+  return usersService.getUser(params).catch(error => {
+    logger.error(`Could not fetch user. Error: ${error.message}`);
+    return Promise.reject(error);
+  });
+};
 
-const getPosts = () => [
-  {
-    id: 1,
-    userId: 1,
-    title: 'user 1 post 1',
-    description: 'user 1 post 1',
-    upvotes: 234,
-    downvotes: 233
-  },
-  {
-    id: 2,
-    userId: 1,
-    title: 'user 1 post 2',
-    description: 'user 1 post 2',
-    upvotes: 234,
-    downvotes: 233
-  }
-];
+const getUsers = () => {
+  logger.info('Fetching users...');
+  return usersService.getUsers().catch(error => {
+    logger.error(`Could not fetch the list of users. Error: ${error.message}`);
+    return Promise.reject(error);
+  });
+};
 
-const getOrders = () => [
-  {
-    id: 1,
-    userId: 1
-  },
-  {
-    id: 2,
-    userId: 1
-  }
-];
+const getPosts = ({ id: userId }) => {
+  logger.info('Fetching user posts...');
+  return postsService.getPosts({ userId }).catch(error => {
+    logger.error(`Could not fetch the list of posts. Error: ${error.message}`);
+    return Promise.reject(error);
+  });
+};
 
 module.exports = {
   Query: {
@@ -44,7 +32,6 @@ module.exports = {
     users: getUsers
   },
   User: {
-    posts: getPosts,
-    orders: getOrders
+    posts: getPosts
   }
 };
